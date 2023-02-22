@@ -8,8 +8,4 @@
     <ProjectReference Include="..\NMCK3.Shared\NMCK3.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
-
 </Project>

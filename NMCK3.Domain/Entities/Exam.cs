@@ -1,11 +1,14 @@
 ﻿using NMCK3.Domain.Exceptions;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace NMCK3.Domain.Entities
 {
     public class Exam
     {
+        private readonly List<ExamReservation> _examReservations = new();
+
         public Guid Id { get; private set; }
         public string Name { get; private set; }
         public PersianCalendar ExamDate { get; private set; }
@@ -13,6 +16,7 @@ namespace NMCK3.Domain.Entities
         public int Capacity { get; private set; }
         public int RemainingCapacity { get; private set; }
         public bool IsOpen { get; private set; }
+        public IReadOnlyCollection<ExamReservation> ExamReservations => _examReservations;
 
 
         private Exam(Guid id, string name, PersianCalendar examDate, string description, int capacity)
@@ -52,7 +56,7 @@ namespace NMCK3.Domain.Entities
             Description = description;
             Capacity = capacity;
         }
-        
+
         public void OpenRegistration()
         {
             IsOpen = true;
@@ -61,6 +65,18 @@ namespace NMCK3.Domain.Entities
         public void CloseRegistration()
         {
             IsOpen = false;
+        }
+
+        public ExamReservation SubmitReservation(Participant participant)
+        {
+            if (participant is null)
+                throw new NullParticipantException();
+
+            var reservation = new ExamReservation(Guid.NewGuid(), participant, this);
+
+            _examReservations.Add(reservation);
+
+            return reservation;
         }
 
     }
