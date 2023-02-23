@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace NMCK3.Domain.Entities
 {
@@ -22,7 +21,7 @@ namespace NMCK3.Domain.Entities
 
         public double WritingScore { get; private set; } = 0.0;
 
-        public PersianCalendar ScoreSubmitDate { get; private set; } = new PersianCalendar();
+        public string ScoreSubmitDate { get; private set; } 
 
         public Guid ParticipantId { get; private set; }
 

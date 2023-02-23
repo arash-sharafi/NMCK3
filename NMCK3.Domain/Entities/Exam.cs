@@ -1,7 +1,6 @@
 ﻿using NMCK3.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace NMCK3.Domain.Entities
 {
@@ -11,7 +10,7 @@ namespace NMCK3.Domain.Entities
 
         public Guid Id { get; private set; }
         public string Name { get; private set; }
-        public PersianCalendar ExamDate { get; private set; }
+        public string ExamDate { get; private set; }
         public string Description { get; private set; }
         public int Capacity { get; private set; }
         public int RemainingCapacity { get; private set; }
@@ -19,7 +18,7 @@ namespace NMCK3.Domain.Entities
         public IReadOnlyCollection<ExamReservation> ExamReservations => _examReservations;
 
 
-        private Exam(Guid id, string name, PersianCalendar examDate, string description, int capacity)
+        private Exam(Guid id, string name, string examDate, string description, int capacity)
         {
             Id = id;
             Name = name;
@@ -31,7 +30,7 @@ namespace NMCK3.Domain.Entities
         }
 
 
-        public static Exam Create(string name, PersianCalendar examDate, string description, int capacity)
+        public static Exam Create(string name, string examDate, string description, int capacity)
         {
             if (string.IsNullOrEmpty(name.Trim()))
                 throw new EmptyExamNameException();
@@ -43,7 +42,7 @@ namespace NMCK3.Domain.Entities
             return exam;
         }
 
-        public void Update(string name, PersianCalendar examDate, string description, int capacity)
+        public void Update(string name, string examDate, string description, int capacity)
         {
             if (string.IsNullOrEmpty(name.Trim()))
                 throw new EmptyExamNameException();
