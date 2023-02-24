@@ -1,9 +1,9 @@
 ﻿using NMCK3.Domain.Common;
+using NMCK3.Domain.Errors;
 using NMCK3.Domain.Exceptions;
 using NMCK3.Domain.Primitives;
 using System;
 using System.Collections.Generic;
-using NMCK3.Domain.Errors;
 
 namespace NMCK3.Domain.Entities
 {
@@ -44,10 +44,10 @@ namespace NMCK3.Domain.Entities
             return exam;
         }
 
-        public void Update(string name, string examDate, string description, int capacity)
+        public Result Update(string name, string examDate, string description, int capacity)
         {
             if (string.IsNullOrEmpty(name.Trim()))
-                throw new EmptyExamNameException();
+                return Result.Fail<Exam>(DomainErrors.Exam.EmptyName);
 
             if (examDate == null)
                 throw new NullExamDateException();
@@ -56,22 +56,26 @@ namespace NMCK3.Domain.Entities
             ExamDate = examDate;
             Description = description;
             Capacity = capacity;
+
+            return Result.Success();
         }
 
-        public void OpenRegistration()
+        public Result OpenRegistration()
         {
             IsOpen = true;
+            return Result.Success();
         }
 
-        public void CloseRegistration()
+        public Result CloseRegistration()
         {
             IsOpen = false;
+            return Result.Success();
         }
 
-        public ExamReservation SubmitReservation(Participant participant)
+        public Result<ExamReservation> SubmitReservation(Participant participant)
         {
             if (participant is null)
-                throw new NullParticipantException();
+                return Result.Fail<ExamReservation>(DomainErrors.ExamReservation.NullParticipant);
 
             var reservation = new ExamReservation(Guid.NewGuid(), participant, this);
 

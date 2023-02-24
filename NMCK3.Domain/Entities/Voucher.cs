@@ -1,4 +1,5 @@
-﻿using NMCK3.Domain.Exceptions;
+﻿using NMCK3.Domain.Common;
+using NMCK3.Domain.Errors;
 using NMCK3.Domain.Primitives;
 using System;
 
@@ -18,10 +19,14 @@ namespace NMCK3.Domain.Entities
 
         public string CreateDate { get; private set; }
 
-        public static Voucher Create(string voucherNo)
+        public static Result<Voucher> Create(string voucherNo)
         {
             if (string.IsNullOrWhiteSpace(voucherNo))
-                throw new InvalidVoucherNumberException();
+                return Result.Fail<Voucher>(DomainErrors.Voucher.NullOrEmptyVoucherNumber);
+
+            if (voucherNo.Trim().Length != 16)
+                return Result.Fail<Voucher>(DomainErrors.Voucher.InvalidLengthVoucherNumber);
+
 
             string today = "TodayDateInPersian";
 
