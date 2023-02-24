@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NMCK3.Domain.Entities;
+using System;
 using System.Globalization;
 
 namespace NMCK3.Domain.Common

@@ -16,26 +16,42 @@ namespace NMCK3.Domain.Errors
             public static readonly Error NullParticipant = new Error(
                 "ExamReservation.NullParticipant",
                 "Participant can not be null.");
-
-            
         }
 
-        public static class Participant
+        public static class ExamDate
+        {
+            public static readonly Error InvalidExamDate = new Error(
+                "ExamDate.InvalidExamDate",
+                "Exam date can not be less than today date.");
+        }
+
+        public static class ParticipantEmail
         {
             public static readonly Error NullOrEmptyEmail = new Error(
-                "Participant.NullOrEmptyEmail",
-                "Participant Email Address can not be null.");
+                "ParticipantEmail.NullOrEmptyEmail",
+                "Participant email address can not be null.");
+
+            public static readonly Error InvalidEmail = new Error(
+                "ParticipantEmail.InvalidEmail",
+                "Participant Email Address is not valid.");
         }
 
-        public static class Voucher
+        public static class VoucherCode
         {
             public static readonly Error NullOrEmptyVoucherNumber = new Error(
-                "Voucher.NullOrEmpty",
-                "Voucher Number can not be null or empty.");
+                "VoucherCode.NullOrEmpty",
+                "Voucher code can not be null or empty.");
 
             public static readonly Error InvalidLengthVoucherNumber = new Error(
-                "Voucher.InvalidLengthVoucherNumber",
-                "Voucher Number cannot be less than 16 digits.");
+                "VoucherCode.InvalidLengthVoucherNumber",
+                "Voucher code has to be exactly 16 digits.");
+        }
+
+        public static class VoucherPurchaseDate
+        {
+            public static readonly Error InvalidPurchaseDate = new Error(
+                "VoucherPurchaseDate.InvalidPurchaseDate",
+                "Voucher purchase date is not valid.");
         }
     }
 }

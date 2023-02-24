@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace NMCK3.Domain.Common
+namespace NMCK3.Domain.Entities
 {
     public class PersianDate : ValueObject
     {
@@ -20,6 +20,11 @@ namespace NMCK3.Domain.Common
             var day = int.Parse(date.Value.Substring(6, 2));
 
             return new DateTime(year, month, day);
+        }
+
+        public static implicit operator string(PersianDate date)
+        {
+            return date.Value;
         }
 
         public static bool operator <(PersianDate left, PersianDate right)

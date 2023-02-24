@@ -1,4 +1,6 @@
 ﻿using NMCK3.Domain.Common;
+using NMCK3.Domain.Entities;
+using NMCK3.Domain.Errors;
 
 namespace NMCK3.Domain.ValueObjects
 {
@@ -8,14 +10,12 @@ namespace NMCK3.Domain.ValueObjects
         {
         }
 
-        public static Result<ExamDate> Create(string date)
+        public static Result<ExamDate> Create(string examDate)
         {
-            if (Utilities.TodayDate() > new PersianDate(date))
-                return Result.Fail<ExamDate>(new Error("ExamDate.Invalid",
-                    "ExamDate can not be less than today date."));
+            if (Utilities.TodayDate() > new PersianDate(examDate))
+                return Result.Fail<ExamDate>(DomainErrors.ExamDate.InvalidExamDate);
 
-            var examDate = new ExamDate(date);
-            return examDate;
+            return new ExamDate(examDate);
         }
     }
 }

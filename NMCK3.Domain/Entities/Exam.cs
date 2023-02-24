@@ -2,6 +2,7 @@
 using NMCK3.Domain.Errors;
 using NMCK3.Domain.Exceptions;
 using NMCK3.Domain.Primitives;
+using NMCK3.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace NMCK3.Domain.Entities
         private readonly List<ExamReservation> _examReservations = new();
 
         public string Name { get; private set; }
-        public string ExamDate { get; private set; }
+        public ExamDate ExamDate { get; private set; }
         public string Description { get; private set; }
         public int Capacity { get; private set; }
         public int RemainingCapacity { get; private set; }
@@ -20,7 +21,7 @@ namespace NMCK3.Domain.Entities
         public IReadOnlyCollection<ExamReservation> ExamReservations => _examReservations;
 
 
-        private Exam(Guid id, string name, string examDate, string description, int capacity)
+        private Exam(Guid id, string name, ExamDate examDate, string description, int capacity)
             : base(id)
         {
             Name = name;
@@ -32,7 +33,7 @@ namespace NMCK3.Domain.Entities
         }
 
 
-        public static Result<Exam> Create(string name, string examDate, string description, int capacity)
+        public static Result<Exam> Create(string name, ExamDate examDate, string description, int capacity)
         {
             if (string.IsNullOrEmpty(name.Trim()))
                 return Result.Fail<Exam>(DomainErrors.Exam.EmptyName);
@@ -44,7 +45,7 @@ namespace NMCK3.Domain.Entities
             return exam;
         }
 
-        public Result Update(string name, string examDate, string description, int capacity)
+        public Result Update(string name, ExamDate examDate, string description, int capacity)
         {
             if (string.IsNullOrEmpty(name.Trim()))
                 return Result.Fail<Exam>(DomainErrors.Exam.EmptyName);
