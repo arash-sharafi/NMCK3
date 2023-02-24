@@ -1,17 +1,17 @@
 ﻿using NMCK3.Domain.Exceptions;
+using NMCK3.Domain.Primitives;
 using System;
 
 namespace NMCK3.Domain.Entities
 {
-    public class Participant
+    public sealed class Participant : Entity
     {
         private Participant(Guid id, string email)
+            : base(id)
         {
-            Id = id;
             Email = email;
         }
 
-        public Guid Id { get; private set; }
         public string Email { get; private set; }
 
         public static Participant Create(string email)

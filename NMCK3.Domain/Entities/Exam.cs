@@ -1,14 +1,14 @@
 ﻿using NMCK3.Domain.Exceptions;
+using NMCK3.Domain.Primitives;
 using System;
 using System.Collections.Generic;
 
 namespace NMCK3.Domain.Entities
 {
-    public class Exam
+    public sealed class Exam : Entity
     {
         private readonly List<ExamReservation> _examReservations = new();
 
-        public Guid Id { get; private set; }
         public string Name { get; private set; }
         public string ExamDate { get; private set; }
         public string Description { get; private set; }
@@ -18,9 +18,9 @@ namespace NMCK3.Domain.Entities
         public IReadOnlyCollection<ExamReservation> ExamReservations => _examReservations;
 
 
-        private Exam(Guid id, string name, string examDate, string description, int capacity)
+        private Exam(Guid id, string name, string examDate, string description, int capacity) 
+            : base(id)
         {
-            Id = id;
             Name = name;
             ExamDate = examDate;
             Description = description;

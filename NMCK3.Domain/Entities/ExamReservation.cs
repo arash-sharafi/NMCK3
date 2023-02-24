@@ -1,17 +1,17 @@
-﻿using System;
+﻿using NMCK3.Domain.Primitives;
+using System;
 
 namespace NMCK3.Domain.Entities
 {
-    public class ExamReservation
+    public sealed class ExamReservation : Entity
     {
         internal ExamReservation(Guid id, Participant participant, Exam exam)
+            : base(id)
         {
-            Id = id;
             ParticipantId = participant.Id;
             ExamId = exam.Id;
         }
 
-        public Guid Id { get; private set; }
 
         public double ReadingScore { get; private set; } = 0.0;
 
@@ -21,7 +21,7 @@ namespace NMCK3.Domain.Entities
 
         public double WritingScore { get; private set; } = 0.0;
 
-        public string ScoreSubmitDate { get; private set; } 
+        public string ScoreSubmitDate { get; private set; }
 
         public Guid ParticipantId { get; private set; }
 
