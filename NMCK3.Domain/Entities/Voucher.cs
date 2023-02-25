@@ -5,7 +5,7 @@ using System;
 
 namespace NMCK3.Domain.Entities
 {
-    public sealed class Voucher : Entity
+    public sealed class Voucher : AggregateRoot
     {
         private Voucher(Guid id, VoucherCode voucherCode, VoucherPurchaseDate purchaseDate)
             : base(id)
@@ -21,7 +21,6 @@ namespace NMCK3.Domain.Entities
 
         public static Result<Voucher> Create(VoucherCode voucherCode)
         {
-            
             var purchaseDate = VoucherPurchaseDate.Create(Utilities.TodayDate());
 
             var voucher = new Voucher(Guid.NewGuid(), voucherCode, purchaseDate.Value);

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace NMCK3.Domain.Entities
 {
-    public sealed class Exam : Entity
+    public sealed class Exam : AggregateRoot
     {
         private readonly List<ExamReservation> _examReservations = new();
 
