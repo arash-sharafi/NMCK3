@@ -73,7 +73,7 @@ namespace NMCK3.Domain.Entities
             return Result.Success();
         }
 
-        public Result<ExamReservation> SubmitReservation(Participant participant)
+        public Result<ExamReservation> SubmitReservation(User participant)
         {
             if (participant is null)
                 return Result.Fail<ExamReservation>(DomainErrors.ExamReservation.NullParticipant);

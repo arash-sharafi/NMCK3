@@ -6,23 +6,23 @@ using System.Text.RegularExpressions;
 
 namespace NMCK3.Domain.ValueObjects
 {
-    public class ParticipantEmail : ValueObject
+    public class Email : ValueObject
     {
         public string Value { get; }
-        private ParticipantEmail(string value)
+        private Email(string value)
         {
             Value = value;
         }
 
-        public static Result<ParticipantEmail> Create(string emailAddress)
+        public static Result<Email> Create(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
-                Result.Fail<ParticipantEmail>(DomainErrors.ParticipantEmail.NullOrEmptyEmail);
+                Result.Fail<Email>(DomainErrors.Email.NullOrEmptyEmail);
 
             if (IsEmailValid(emailAddress))
-                Result.Fail<ParticipantEmail>(DomainErrors.ParticipantEmail.InvalidEmail);
+                Result.Fail<Email>(DomainErrors.Email.InvalidEmail);
 
-            return new ParticipantEmail(emailAddress);
+            return new Email(emailAddress);
         }
 
         public override IEnumerable<object> GetEqualityComponents()

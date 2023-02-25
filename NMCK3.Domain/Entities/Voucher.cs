@@ -7,23 +7,25 @@ namespace NMCK3.Domain.Entities
 {
     public sealed class Voucher : AggregateRoot
     {
-        private Voucher(Guid id, VoucherCode voucherCode, VoucherPurchaseDate purchaseDate)
+        private Voucher(Guid id, VoucherCode voucherCode, VoucherPurchaseDate purchaseDate, User buyer)
             : base(id)
         {
             VoucherCode = voucherCode;
             PurchaseDate = purchaseDate;
+            Buyer = buyer;
         }
 
 
         public VoucherCode VoucherCode { get; private set; }
 
         public VoucherPurchaseDate PurchaseDate { get; private set; }
+        public User Buyer { get; private set; }
 
-        public static Result<Voucher> Create(VoucherCode voucherCode)
+        public static Result<Voucher> Create(VoucherCode voucherCode, User buyer)
         {
             var purchaseDate = VoucherPurchaseDate.Create(Utilities.TodayDate());
 
-            var voucher = new Voucher(Guid.NewGuid(), voucherCode, purchaseDate.Value);
+            var voucher = new Voucher(Guid.NewGuid(), voucherCode, purchaseDate.Value, buyer);
 
             return voucher;
         }

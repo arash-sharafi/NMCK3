@@ -25,15 +25,15 @@ namespace NMCK3.Domain.Errors
                 "Exam date can not be less than today date.");
         }
 
-        public static class ParticipantEmail
+        public static class Email
         {
             public static readonly Error NullOrEmptyEmail = new Error(
-                "ParticipantEmail.NullOrEmptyEmail",
-                "Participant email address can not be null.");
+                "Email.NullOrEmptyEmail",
+                "Email address can not be null.");
 
             public static readonly Error InvalidEmail = new Error(
-                "ParticipantEmail.InvalidEmail",
-                "Participant Email Address is not valid.");
+                "Email.InvalidEmail",
+                "Email Address is not valid.");
         }
 
         public static class VoucherCode
