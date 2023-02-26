@@ -12,8 +12,4 @@
     <ProjectReference Include="..\NMCK3.Domain\NMCK3.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Exams\Commands\Create\" />
-  </ItemGroup>
-
 </Project>
