@@ -3,6 +3,7 @@ using NMCK3.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NMCK3.Infrastructure.Persistance.Repositories
@@ -10,19 +11,19 @@ namespace NMCK3.Infrastructure.Persistance.Repositories
     public class VoucherRepository : IVoucherRepository
     {
         private readonly List<Voucher> _vouchers = new();
-        public async Task<Voucher> GetVoucherByCode(string voucherCode)
+        public async Task<Voucher> GetVoucherByCode(string voucherCode, CancellationToken cancellationToken = default)
         {
             await Task.CompletedTask;
             return _vouchers.FirstOrDefault(x => x.VoucherCode.Value == voucherCode);
         }
 
-        public async Task<Voucher> GetVoucherById(Guid voucherId)
+        public async Task<Voucher> GetVoucherById(Guid voucherId, CancellationToken cancellationToken = default)
         {
             await Task.CompletedTask;
             return _vouchers.FirstOrDefault(x => x.Id == voucherId);
         }
 
-        public async Task<IEnumerable<Voucher>> GetVouchersByUserId(Guid buyerId)
+        public async Task<IEnumerable<Voucher>> GetVouchersByUserId(Guid buyerId, CancellationToken cancellationToken = default)
         {
             await Task.CompletedTask;
             return _vouchers.Where(x => x.Buyer.Id == buyerId).ToList();

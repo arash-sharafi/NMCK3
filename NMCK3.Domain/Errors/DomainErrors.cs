@@ -23,6 +23,10 @@ namespace NMCK3.Domain.Errors
             public static readonly Error InvalidExamDate = new Error(
                 "ExamDate.InvalidExamDate",
                 "Exam date can not be less than today date.");
+
+            public static readonly Error  NullOrEmptyExamDate = new Error(
+                "ExamDate.NullOrEmptyExamDate",
+                "Exam date can not be Null of Empty.");
         }
 
         public static class Email

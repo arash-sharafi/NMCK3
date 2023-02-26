@@ -12,6 +12,9 @@ namespace NMCK3.Domain.ValueObjects
 
         public static Result<ExamDate> Create(string examDate)
         {
+            if (string.IsNullOrWhiteSpace(examDate))
+                return Result.Fail<ExamDate>(DomainErrors.ExamDate.NullOrEmptyExamDate);
+
             if (Utilities.TodayDate() > new PersianDate(examDate))
                 return Result.Fail<ExamDate>(DomainErrors.ExamDate.InvalidExamDate);
 

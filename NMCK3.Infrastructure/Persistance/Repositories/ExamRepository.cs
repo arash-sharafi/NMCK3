@@ -3,6 +3,7 @@ using NMCK3.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NMCK3.Infrastructure.Persistance.Repositories
@@ -11,13 +12,13 @@ namespace NMCK3.Infrastructure.Persistance.Repositories
     {
         private readonly List<Exam> _exams = new();
 
-        public async Task<IEnumerable<Exam>> GetExams()
+        public async Task<IEnumerable<Exam>> GetExams(CancellationToken cancellationToken = default)
         {
             await Task.CompletedTask;
             return _exams;
         }
 
-        public async Task<Exam> GetExamById(Guid examId)
+        public async Task<Exam> GetExamById(Guid examId, CancellationToken cancellationToken= default)
         {
             await Task.CompletedTask;
             return _exams.FirstOrDefault(x => x.Id == examId);

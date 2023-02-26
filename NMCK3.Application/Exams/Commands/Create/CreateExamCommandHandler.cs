@@ -21,8 +21,13 @@ namespace NMCK3.Application.Exams.Commands.Create
 
         public async Task<Result> Handle(CreateExamCommand request, CancellationToken cancellationToken)
         {
-            var examDate = ExamDate.Create(request.ExamDate);
-            var result = Exam.Create(request.Name, examDate.Value, request.Description, request.Capacity);
+            var examDateResult = ExamDate.Create(request.ExamDate);
+            if (examDateResult.IsFailure)
+            {
+                return Result.Fail(examDateResult.Error);
+            }
+
+            var result = Exam.Create(request.Name, examDateResult.Value, request.Description, request.Capacity);
 
 
             if (result.IsFailure)
@@ -31,7 +36,7 @@ namespace NMCK3.Application.Exams.Commands.Create
             }
 
             _examRepository.Add(result.Value);
-            await _unitOfWork.CompleteAsync();
+            await _unitOfWork.CompleteAsync(cancellationToken);
 
             return Result.Success();
         }

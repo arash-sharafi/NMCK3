@@ -38,9 +38,6 @@ namespace NMCK3.Domain.Entities
             if (string.IsNullOrEmpty(name.Trim()))
                 return Result.Fail<Exam>(DomainErrors.Exam.EmptyName);
 
-            if (examDate == null)
-                throw new NullExamDateException();
-
             var exam = new Exam(Guid.NewGuid(), name, examDate, description, capacity);
             return exam;
         }
