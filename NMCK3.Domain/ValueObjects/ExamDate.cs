@@ -1,6 +1,7 @@
 ﻿using NMCK3.Domain.Common;
 using NMCK3.Domain.Entities;
 using NMCK3.Domain.Errors;
+using System;
 
 namespace NMCK3.Domain.ValueObjects
 {
@@ -10,12 +11,12 @@ namespace NMCK3.Domain.ValueObjects
         {
         }
 
-        public static Result<ExamDate> Create(string examDate)
+        public static Result<ExamDate> Create(string examDate, DateTime currentDate)
         {
             if (string.IsNullOrWhiteSpace(examDate))
                 return Result.Fail<ExamDate>(DomainErrors.ExamDate.NullOrEmptyExamDate);
 
-            if (Utilities.TodayDate() > new PersianDate(examDate))
+            if (Today(currentDate) > new PersianDate(examDate))
                 return Result.Fail<ExamDate>(DomainErrors.ExamDate.InvalidExamDate);
 
             return new ExamDate(examDate);

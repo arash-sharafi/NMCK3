@@ -5,11 +5,12 @@ namespace NMCK3.Domain.Entities
 {
     public sealed class ExamReservation : Entity
     {
-        internal ExamReservation(Guid id, User participant, Exam exam)
+        internal ExamReservation(Guid id, Exam exam, User participant, Voucher voucher)
             : base(id)
         {
-            Participant = participant;
             Exam = exam;
+            Participant = participant;
+            Voucher = voucher;
         }
 
 
@@ -26,5 +27,6 @@ namespace NMCK3.Domain.Entities
         public User Participant { get; private set; }
 
         public Exam Exam { get; private set; }
+        public Voucher Voucher { get; private set; }
     }
 }

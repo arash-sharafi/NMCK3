@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NMCK3.Application;
 using NMCK3.Infrastructure;
 
 namespace NMCK3.Api
@@ -19,7 +20,9 @@ namespace NMCK3.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfrastructure();
+            services.AddApplication()
+                .AddInfrastructure();
+
             services.AddControllers();
         }
 

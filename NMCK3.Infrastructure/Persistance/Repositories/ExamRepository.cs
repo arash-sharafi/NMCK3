@@ -18,7 +18,7 @@ namespace NMCK3.Infrastructure.Persistance.Repositories
             return _exams;
         }
 
-        public async Task<Exam> GetExamById(Guid examId, CancellationToken cancellationToken= default)
+        public async Task<Exam> GetExamById(Guid examId, CancellationToken cancellationToken = default)
         {
             await Task.CompletedTask;
             return _exams.FirstOrDefault(x => x.Id == examId);

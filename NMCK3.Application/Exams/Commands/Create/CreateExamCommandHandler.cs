@@ -1,4 +1,5 @@
 ﻿using NMCK3.Application.Abstractions.Messaging;
+using NMCK3.Application.Common.Services;
 using NMCK3.Application.Repositories;
 using NMCK3.Domain.Common;
 using NMCK3.Domain.Entities;
@@ -12,16 +13,20 @@ namespace NMCK3.Application.Exams.Commands.Create
     {
         private readonly IExamRepository _examRepository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDateTimeProvider _dateTimeProvider;
 
-        public CreateExamCommandHandler(IExamRepository examRepository, IUnitOfWork unitOfWork)
+        public CreateExamCommandHandler(IExamRepository examRepository, IUnitOfWork unitOfWork, IDateTimeProvider dateTimeProvider)
         {
             _examRepository = examRepository;
             _unitOfWork = unitOfWork;
+            _dateTimeProvider = dateTimeProvider;
         }
 
         public async Task<Result> Handle(CreateExamCommand request, CancellationToken cancellationToken)
         {
-            var examDateResult = ExamDate.Create(request.ExamDate);
+            var examDateResult = ExamDate.Create(examDate: request.ExamDate, 
+                currentDate: _dateTimeProvider.Now);
+
             if (examDateResult.IsFailure)
             {
                 return Result.Fail(examDateResult.Error);
