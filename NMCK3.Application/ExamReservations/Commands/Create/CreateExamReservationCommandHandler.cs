@@ -1,16 +1,16 @@
-﻿using NMCK3.Application.Abstractions.Messaging;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using NMCK3.Application.Abstractions.Messaging;
 using NMCK3.Application.Common;
 using NMCK3.Application.Common.Errors;
 using NMCK3.Application.Common.Services;
 using NMCK3.Application.Repositories;
 using NMCK3.Domain.Common;
 using NMCK3.Domain.Entities;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
-namespace NMCK3.Application.ExamReservations.Create
+namespace NMCK3.Application.ExamReservations.Commands.Create
 {
     internal sealed class CreateExamReservationCommandHandler : ICommandHandler<CreateExamReservationCommand>
     {

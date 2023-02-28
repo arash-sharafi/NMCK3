@@ -21,12 +21,9 @@ namespace NMCK3.Domain.Entities
         public VoucherPurchaseDate PurchaseDate { get; private set; }
         public User Buyer { get; private set; }
 
-        public static Result<Voucher> Create(VoucherCode voucherCode, User buyer, string purchaseDate, DateTime now)
+        public static Result<Voucher> Create(VoucherCode voucherCode, User buyer, VoucherPurchaseDate purchaseDate, DateTime now)
         {
-            var purchaseDateResult =
-                VoucherPurchaseDate.Create(purchaseDate, now);
-
-            var voucher = new Voucher(Guid.NewGuid(), voucherCode, purchaseDateResult.Value, buyer);
+            var voucher = new Voucher(Guid.NewGuid(), voucherCode, purchaseDate, buyer);
 
             return voucher;
         }
