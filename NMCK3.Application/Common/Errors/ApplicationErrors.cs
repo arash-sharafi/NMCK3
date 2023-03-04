@@ -10,5 +10,12 @@ namespace NMCK3.Application.Common.Errors
                 "Voucher.InvalidVoucher",
                 "The voucher code is not valid.");
         }
+
+        public static class User
+        {
+            public static readonly Error InvalidCredentials = new Error(
+                "User.InvalidCredentials",
+                "Invalid credentials");
+        }
     }
 }

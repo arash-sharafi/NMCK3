@@ -9,6 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\NMCK3.Application\NMCK3.Application.csproj" />
     <ProjectReference Include="..\NMCK3.Infrastructure\NMCK3.Infrastructure.csproj" />
   </ItemGroup>

@@ -21,7 +21,7 @@ namespace NMCK3.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApplication()
-                .AddInfrastructure();
+                .AddInfrastructure(Configuration);
 
             services.AddControllers();
         }
@@ -38,6 +38,7 @@ namespace NMCK3.Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

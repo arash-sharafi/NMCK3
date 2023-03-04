@@ -1,5 +1,6 @@
 ﻿using NMCK3.Application.Repositories;
 using NMCK3.Domain.Entities;
+using NMCK3.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,12 @@ namespace NMCK3.Infrastructure.Persistance.Repositories
         {
             await Task.CompletedTask;
             return _users.FirstOrDefault(x => x.Id == userId);
+        }
+
+        public async Task<User> GetUserByEmail(Email email, CancellationToken cancellationToken = default)
+        {
+            await Task.CompletedTask;
+            return _users.FirstOrDefault(x => x.Email == email);
         }
     }
 }

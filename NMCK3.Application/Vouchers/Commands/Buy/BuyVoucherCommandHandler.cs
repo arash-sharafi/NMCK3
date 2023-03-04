@@ -79,7 +79,7 @@ namespace NMCK3.Application.Vouchers.Commands.Buy
 
                 var voucherAlreadyExist =
                     await _voucherRepository.GetVoucherByCode(
-                        voucherResult.Value.VoucherCode.Value,
+                        voucherResult.Value.VoucherCode,
                         cancellationToken);
 
                 if (voucherAlreadyExist is not null)

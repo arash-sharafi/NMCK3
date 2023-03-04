@@ -1,5 +1,6 @@
 ﻿using NMCK3.Application.Repositories;
 using NMCK3.Domain.Entities;
+using NMCK3.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,10 @@ namespace NMCK3.Infrastructure.Persistance.Repositories
     public class VoucherRepository : IVoucherRepository
     {
         private readonly List<Voucher> _vouchers = new();
-        public async Task<Voucher> GetVoucherByCode(string voucherCode, CancellationToken cancellationToken = default)
+        public async Task<Voucher> GetVoucherByCode(VoucherCode voucherCode, CancellationToken cancellationToken = default)
         {
             await Task.CompletedTask;
-            return _vouchers.FirstOrDefault(x => x.VoucherCode.Value == voucherCode);
+            return _vouchers.FirstOrDefault(x => x.VoucherCode == voucherCode);
         }
 
         public async Task<Voucher> GetVoucherById(Guid voucherId, CancellationToken cancellationToken = default)
