@@ -1,7 +1,7 @@
-﻿using NMCK3.Domain.Common;
-using NMCK3.Domain.Errors;
+﻿using NMCK3.Domain.Errors;
 using NMCK3.Domain.Exceptions;
 using NMCK3.Domain.Primitives;
+using NMCK3.Domain.Shared;
 using NMCK3.Domain.ValueObjects;
 using System;
 using System.Collections.Generic;

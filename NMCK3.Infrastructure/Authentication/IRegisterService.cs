@@ -1,6 +1,6 @@
-﻿using System.Threading;
+﻿using NMCK3.Domain.Shared;
+using System.Threading;
 using System.Threading.Tasks;
-using NMCK3.Domain.Common;
 
 namespace NMCK3.Infrastructure.Authentication
 {

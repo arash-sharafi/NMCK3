@@ -1,7 +1,7 @@
 ﻿using NMCK3.Application.Abstractions.Authentication;
 using NMCK3.Application.Abstractions.Messaging;
 using NMCK3.Application.Common.Errors;
-using NMCK3.Domain.Common;
+using NMCK3.Domain.Shared;
 using NMCK3.Domain.ValueObjects;
 using System.Threading;
 using System.Threading.Tasks;

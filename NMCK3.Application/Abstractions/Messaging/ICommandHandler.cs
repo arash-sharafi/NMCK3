@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using NMCK3.Domain.Common;
+using NMCK3.Domain.Shared;
 
 namespace NMCK3.Application.Abstractions.Messaging
 {

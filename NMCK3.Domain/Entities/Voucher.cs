@@ -1,5 +1,5 @@
-﻿using NMCK3.Domain.Common;
-using NMCK3.Domain.Primitives;
+﻿using NMCK3.Domain.Primitives;
+using NMCK3.Domain.Shared;
 using NMCK3.Domain.ValueObjects;
 using System;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using NMCK3.Domain.Common;
+using NMCK3.Domain.Shared;
 using NMCK3.Infrastructure.Persistance.Models;
 using System.Threading;
 using System.Threading.Tasks;

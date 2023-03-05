@@ -1,6 +1,6 @@
-﻿using NMCK3.Domain.Common;
-using NMCK3.Domain.Errors;
+﻿using NMCK3.Domain.Errors;
 using NMCK3.Domain.Primitives;
+using NMCK3.Domain.Shared;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 

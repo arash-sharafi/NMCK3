@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NMCK3.Domain.Common
+namespace NMCK3.Domain.Shared
 {
     public class Result<T> : Result
     {

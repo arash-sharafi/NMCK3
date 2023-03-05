@@ -1,14 +1,14 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using NMCK3.Application.Abstractions.Messaging;
+﻿using NMCK3.Application.Abstractions.Messaging;
 using NMCK3.Application.Common;
 using NMCK3.Application.Common.Errors;
 using NMCK3.Application.Common.Services;
 using NMCK3.Application.Repositories;
-using NMCK3.Domain.Common;
 using NMCK3.Domain.Entities;
+using NMCK3.Domain.Shared;
+using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NMCK3.Application.ExamReservations.Commands.Create
 {
