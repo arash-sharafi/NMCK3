@@ -1,4 +1,5 @@
 ﻿using NMCK3.Application.Abstractions.Messaging;
+using System;
 
 namespace NMCK3.Application.Exams.Commands.Create
 {
@@ -6,5 +7,5 @@ namespace NMCK3.Application.Exams.Commands.Create
         string Name,
         string ExamDate,
         string Description,
-        int Capacity) : ICommand;
+        int Capacity) : ICommand<Guid>;
 }

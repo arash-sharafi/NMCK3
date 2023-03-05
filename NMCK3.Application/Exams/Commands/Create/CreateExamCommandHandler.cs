@@ -4,12 +4,13 @@ using NMCK3.Application.Repositories;
 using NMCK3.Domain.Entities;
 using NMCK3.Domain.Shared;
 using NMCK3.Domain.ValueObjects;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace NMCK3.Application.Exams.Commands.Create
 {
-    internal sealed class CreateExamCommandHandler : ICommandHandler<CreateExamCommand>
+    internal sealed class CreateExamCommandHandler : ICommandHandler<CreateExamCommand, Guid>
     {
         private readonly IExamRepository _examRepository;
         private readonly IUnitOfWork _unitOfWork;
@@ -22,14 +23,14 @@ namespace NMCK3.Application.Exams.Commands.Create
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<Result> Handle(CreateExamCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Guid>> Handle(CreateExamCommand request, CancellationToken cancellationToken)
         {
-            var examDateResult = ExamDate.Create(examDate: request.ExamDate, 
+            var examDateResult = ExamDate.Create(examDate: request.ExamDate,
                 currentDate: _dateTimeProvider.Now);
 
             if (examDateResult.IsFailure)
             {
-                return Result.Fail(examDateResult.Error);
+                return Result.Fail<Guid>(examDateResult.Error);
             }
 
             var result = Exam.Create(request.Name, examDateResult.Value, request.Description, request.Capacity);
@@ -37,13 +38,13 @@ namespace NMCK3.Application.Exams.Commands.Create
 
             if (result.IsFailure)
             {
-                return Result.Fail(result.Error);
+                return Result.Fail<Guid>(result.Error);
             }
 
             _examRepository.Add(result.Value);
             await _unitOfWork.CompleteAsync(cancellationToken);
 
-            return Result.Success();
+            return result.Value.Id;
         }
     }
 }
