@@ -13,6 +13,8 @@ namespace NMCK3.Domain.Entities
             Email = email;
         }
 
+        public new string Id { get; set; }
+
         public Email Email { get; private set; }
 
         public static Result<User> Create(Email email)
@@ -20,6 +22,11 @@ namespace NMCK3.Domain.Entities
             var participant = new User(Guid.NewGuid(), email);
 
             return participant;
+        }
+
+        private User()
+        {
+
         }
     }
 }

@@ -1,13 +1,13 @@
-﻿using NMCK3.Application.Repositories;
-using NMCK3.Domain.Entities;
-using NMCK3.Domain.ValueObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NMCK3.Application.Repositories;
+using NMCK3.Domain.Entities;
+using NMCK3.Domain.ValueObjects;
 
-namespace NMCK3.Infrastructure.Persistance.Repositories
+namespace NMCK3.Infrastructure.Persistence.Repositories
 {
     public class VoucherRepository : IVoucherRepository
     {
@@ -24,7 +24,7 @@ namespace NMCK3.Infrastructure.Persistance.Repositories
             return _vouchers.FirstOrDefault(x => x.Id == voucherId);
         }
 
-        public async Task<IEnumerable<Voucher>> GetVouchersByUserId(Guid buyerId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Voucher>> GetVouchersByUserId(string buyerId, CancellationToken cancellationToken = default)
         {
             await Task.CompletedTask;
             return _vouchers.Where(x => x.Buyer.Id == buyerId).ToList();

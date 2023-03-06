@@ -7,7 +7,7 @@ namespace NMCK3.Domain.ValueObjects
 {
     public class VoucherPurchaseDate : PersianDate
     {
-        public VoucherPurchaseDate(string value) : base(value)
+        private VoucherPurchaseDate(string value) : base(value)
         {
         }
 
@@ -18,5 +18,6 @@ namespace NMCK3.Domain.ValueObjects
 
             return new VoucherPurchaseDate(purchaseDate);
         }
+
     }
 }

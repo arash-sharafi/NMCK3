@@ -2,13 +2,13 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NMCK3.Application.Abstractions.Authentication;
-using NMCK3.Infrastructure.Persistance.Models;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using NMCK3.Infrastructure.Persistence.Models;
 
 namespace NMCK3.Infrastructure.Authentication
 {

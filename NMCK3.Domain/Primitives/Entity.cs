@@ -4,6 +4,10 @@ namespace NMCK3.Domain.Primitives
 {
     public abstract class Entity : IEquatable<Entity>
     {
+        protected Entity()
+        {
+
+        }
         protected Entity(Guid id)
         {
             Id = id;

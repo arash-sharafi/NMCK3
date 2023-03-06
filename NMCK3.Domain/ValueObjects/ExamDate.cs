@@ -21,5 +21,6 @@ namespace NMCK3.Domain.ValueObjects
 
             return new ExamDate(examDate);
         }
+
     }
 }

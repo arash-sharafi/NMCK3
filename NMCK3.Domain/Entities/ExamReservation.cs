@@ -25,8 +25,12 @@ namespace NMCK3.Domain.Entities
         public string ScoreSubmitDate { get; private set; }
 
         public User Participant { get; private set; }
-
         public Exam Exam { get; private set; }
         public Voucher Voucher { get; private set; }
+
+        private ExamReservation()
+        {
+
+        }
     }
 }

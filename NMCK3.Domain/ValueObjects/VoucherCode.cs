@@ -28,5 +28,6 @@ namespace NMCK3.Domain.ValueObjects
         {
             yield return Value;
         }
+
     }
 }

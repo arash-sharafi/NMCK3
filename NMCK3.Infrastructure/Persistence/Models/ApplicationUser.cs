@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
-namespace NMCK3.Infrastructure.Persistance.Models
+namespace NMCK3.Infrastructure.Persistence.Models
 {
     public class ApplicationUser:IdentityUser
     {

@@ -82,5 +82,10 @@ namespace NMCK3.Domain.Entities
             return reservation;
         }
 
+        private Exam()
+        {
+
+        }
+
     }
 }

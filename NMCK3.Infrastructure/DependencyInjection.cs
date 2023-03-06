@@ -8,9 +8,9 @@ using NMCK3.Application.Abstractions.Authentication;
 using NMCK3.Application.Common.Services;
 using NMCK3.Application.Repositories;
 using NMCK3.Infrastructure.Authentication;
-using NMCK3.Infrastructure.Persistance;
-using NMCK3.Infrastructure.Persistance.Models;
-using NMCK3.Infrastructure.Persistance.Repositories;
+using NMCK3.Infrastructure.Persistence;
+using NMCK3.Infrastructure.Persistence.Models;
+using NMCK3.Infrastructure.Persistence.Repositories;
 using NMCK3.Infrastructure.Services;
 
 namespace NMCK3.Infrastructure
@@ -21,22 +21,30 @@ namespace NMCK3.Infrastructure
             IConfiguration configuration)
         {
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services
+                .AddPersistence(configuration)
+                .AddAuth();
 
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-
-            services.AddScoped<IExamRepository, IExamRepository>();
-            services.AddScoped<IVoucherRepository, VoucherRepository>();
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-            AddAuth(services);
 
             return services;
         }
 
-        private static IServiceCollection AddAuth(this IServiceCollection services)
+        private static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IExamRepository, ExamRepository>();
+            services.AddScoped<IVoucherRepository, VoucherRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            return services;
+        }
+
+        private static void AddAuth(this IServiceCollection services)
         {
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
@@ -46,10 +54,9 @@ namespace NMCK3.Infrastructure
 
             services.AddAuthorization();
 
-            services.AddSingleton<IJwtTokenProvider, JwtTokenProvider>();
-            services.AddSingleton<IRegisterService, RegisterService>();
-
-            return services;
+            services.AddScoped<IJwtTokenProvider, JwtTokenProvider>();
+            services.AddScoped<IRegisterService, RegisterService>();
+            services.AddScoped<IAuthService, AuthService>();
         }
     }
 }

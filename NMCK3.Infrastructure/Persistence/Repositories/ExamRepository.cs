@@ -1,12 +1,12 @@
-﻿using NMCK3.Application.Repositories;
-using NMCK3.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NMCK3.Application.Repositories;
+using NMCK3.Domain.Entities;
 
-namespace NMCK3.Infrastructure.Persistance.Repositories
+namespace NMCK3.Infrastructure.Persistence.Repositories
 {
     public class ExamRepository : IExamRepository
     {

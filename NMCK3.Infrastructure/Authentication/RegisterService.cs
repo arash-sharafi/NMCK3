@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using NMCK3.Domain.Shared;
-using NMCK3.Infrastructure.Persistance.Models;
 using System.Threading;
 using System.Threading.Tasks;
+using NMCK3.Infrastructure.Persistence.Models;
 
 namespace NMCK3.Infrastructure.Authentication
 {

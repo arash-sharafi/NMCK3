@@ -6,6 +6,6 @@ using System.Collections.ObjectModel;
 namespace NMCK3.Application.Vouchers.Commands.Buy
 {
     public sealed record BuyVoucherCommand(
-        Guid UserId,
+        string UserId,
         int Count) : ICommand<ReadOnlyCollection<Voucher>>;
 }

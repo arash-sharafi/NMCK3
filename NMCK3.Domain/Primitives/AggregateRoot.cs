@@ -8,5 +8,10 @@ namespace NMCK3.Domain.Primitives
             : base(id)
         {
         }
+
+        protected AggregateRoot()
+        {
+
+        }
     }
 }
