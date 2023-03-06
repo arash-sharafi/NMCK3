@@ -11,7 +11,7 @@ namespace NMCK3.Application.Repositories
     {
         Task<Voucher> GetVoucherByCode(VoucherCode voucherCode, CancellationToken cancellationToken = default);
         Task<Voucher> GetVoucherById(Guid voucherId, CancellationToken cancellationToken = default);
-        Task<IEnumerable<Voucher>> GetVouchersByUserId(string buyerId, CancellationToken cancellationToken = default);
+        Task<IEnumerable<Voucher>> GetVouchersByBuyerId(string buyerId, CancellationToken cancellationToken = default);
         void Add(Voucher voucher);
     }
 }

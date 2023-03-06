@@ -1,37 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using NMCK3.Application.Repositories;
 using NMCK3.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NMCK3.Infrastructure.Persistence.Repositories
 {
     public class ExamRepository : IExamRepository
     {
-        private readonly List<Exam> _exams = new();
+        private readonly ApplicationDbContext _context;
+
+        public ExamRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
 
         public async Task<IEnumerable<Exam>> GetExams(CancellationToken cancellationToken = default)
         {
-            await Task.CompletedTask;
-            return _exams;
+            return await _context.Exams.ToListAsync(cancellationToken);
         }
 
         public async Task<Exam> GetExamById(Guid examId, CancellationToken cancellationToken = default)
         {
-            await Task.CompletedTask;
-            return _exams.FirstOrDefault(x => x.Id == examId);
+            return await _context.Exams.FindAsync(examId, cancellationToken);
         }
 
         public void Add(Exam exam)
         {
-            _exams.Add(exam);
+            _context.Exams.Add(exam);
         }
 
         public void Remove(Exam exam)
         {
-            _exams.Remove(exam);
+            _context.Exams.Remove(exam);
         }
     }
 }

@@ -7,19 +7,25 @@ namespace NMCK3.Domain.Entities
 {
     public sealed class User : AggregateRoot
     {
-        private User(Guid id, Email email)
-            : base(id)
+        private User(string id, Email email)
+            : base(Guid.Parse(id))
         {
+            Id = id;
             Email = email;
         }
 
-        public new string Id { get; set; }
+        public new string Id { get; }
 
-        public Email Email { get; private set; }
+        public Email Email { get; }
 
-        public static Result<User> Create(Email email)
+        public static Result<User> Create(string id, string email)
         {
-            var participant = new User(Guid.NewGuid(), email);
+            var emailResult = Email.Create(email);
+
+            if (emailResult.IsFailure)
+                return Result.Fail<User>(emailResult.Error);
+
+            var participant = new User(id, emailResult.Value);
 
             return participant;
         }
