@@ -2,17 +2,22 @@
 using Microsoft.AspNetCore.Mvc;
 using NMCK3.Domain.Shared;
 using System;
+using MediatR;
 
 namespace NMCK3.Api.Controllers
 {
     [ApiController]
     public class ApiController : ControllerBase
     {
-        protected IActionResult HandleFailure(Result result)=>
+        protected readonly ISender Sender;
+
+        protected ApiController(ISender sender) => Sender = sender;
+
+        protected IActionResult HandleFailure(Result result) =>
             result switch
             {
                 { IsSuccess: true } => throw new InvalidOperationException(),
-                IValidationResult validationResult=>
+                IValidationResult validationResult =>
                     BadRequest(
                         CreateProblemDetails(
                             "Validation Error",

@@ -22,5 +22,7 @@ namespace NMCK3.Infrastructure.Persistence
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
             base.OnModelCreating(builder);
         }
+
+        
     }
 }

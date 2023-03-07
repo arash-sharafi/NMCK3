@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using NMCK3.Domain.Shared;
+using NMCK3.Infrastructure.Persistence.Models;
 using System.Threading;
 using System.Threading.Tasks;
-using NMCK3.Infrastructure.Persistence.Models;
 
 namespace NMCK3.Infrastructure.Authentication
 {
     public sealed class RegisterService : IRegisterService
     {
-        private const string ParticipantRole = "Participant";
+        private const string UserRole = "User";
         private readonly UserManager<ApplicationUser> _userManager;
 
         public RegisterService(UserManager<ApplicationUser> userManager)
@@ -30,7 +30,7 @@ namespace NMCK3.Infrastructure.Authentication
             if(!result.Succeeded)
                 return Result.Fail(new Error("User.Register","Error occurred while registering the user."));
 
-            await _userManager.AddToRoleAsync(user, ParticipantRole);
+            await _userManager.AddToRoleAsync(user, UserRole);
 
             return Result.Success();
         }

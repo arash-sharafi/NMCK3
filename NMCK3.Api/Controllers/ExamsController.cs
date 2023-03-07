@@ -10,11 +10,8 @@ namespace NMCK3.Api.Controllers
     [Route("[controller]")]
     public class ExamsController : ApiController
     {
-        private readonly ISender _mediator;
-
-        public ExamsController(ISender mediator)
+        public ExamsController(ISender sender) : base(sender)
         {
-            _mediator = mediator;
         }
 
         [HttpPost("create")]
@@ -27,7 +24,7 @@ namespace NMCK3.Api.Controllers
                 request.Description,
                 request.Capacity);
 
-            var result = await _mediator.Send(command, cancellationToken);
+            var result = await Sender.Send(command, cancellationToken);
 
             if (result.IsFailure)
             {
@@ -36,5 +33,7 @@ namespace NMCK3.Api.Controllers
 
             return Ok(result.Value);
         }
+
+        
     }
 }
