@@ -31,7 +31,7 @@ namespace NMCK3.Infrastructure.Persistence.Repositories.Configurations
 
             builder.OwnsMany(x => x.ExamReservations, er =>
             {
-                er.ToTable(nameof(ExamReservation));
+                er.ToTable(nameof(Exam.ExamReservations));
 
                 er.HasKey("Id", "ExamId");
 

@@ -1,8 +1,6 @@
 ﻿namespace NMCK3.Shared.Contracts.Authentication
 {
-    public record RegisterRequest(
-        string FirstName,
-        string LastName,
+    public record LoginRequest(
         string Email,
         string Password);
 }

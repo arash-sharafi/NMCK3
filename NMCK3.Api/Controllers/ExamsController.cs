@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NMCK3.Application.Exams.Commands.Create;
 using NMCK3.Shared.Contracts.Exams;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace NMCK3.Api.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer", Roles = "Admin")]
     [Route("[controller]")]
     public class ExamsController : ApiController
     {
@@ -16,7 +18,7 @@ namespace NMCK3.Api.Controllers
 
         [HttpPost("create")]
         public async Task<IActionResult> Create(CreateExamRequest request,
-            CancellationToken cancellationToken)
+                CancellationToken cancellationToken)
         {
             var command = new CreateExamCommand(
                 request.Name,
@@ -34,6 +36,6 @@ namespace NMCK3.Api.Controllers
             return Ok(result.Value);
         }
 
-        
+
     }
 }

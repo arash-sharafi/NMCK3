@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NMCK3.Domain.Entities;
 using NMCK3.Domain.ValueObjects;
-using NMCK3.Infrastructure.Persistence.Models;
 
 namespace NMCK3.Infrastructure.Persistence.Repositories.Configurations
 {
@@ -18,11 +17,6 @@ namespace NMCK3.Infrastructure.Persistence.Repositories.Configurations
                 .HasConversion(e => e.Value,
                     value => Email.Create(value).Value)
                 .IsRequired();
-
-
-            builder.HasOne<ApplicationUser>()
-                .WithOne()
-                .HasForeignKey<ApplicationUser>(au => au.Id);
         }
     }
 }

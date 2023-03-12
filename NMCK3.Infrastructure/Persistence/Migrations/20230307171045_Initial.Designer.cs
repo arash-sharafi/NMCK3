@@ -10,8 +10,8 @@ using NMCK3.Infrastructure.Persistence;
 namespace NMCK3.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230305200009_FixExReservation")]
-    partial class FixExReservation
+    [Migration("20230307171045_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,22 @@ namespace NMCK3.Infrastructure.Persistence.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "3763ca4f-023a-4378-b42d-0d89c652a475",
+                            ConcurrencyStamp = "5347f0a4-40aa-4318-815f-e26f6b8a8819",
+                            Name = "Admin",
+                            NormalizedName = "admin"
+                        },
+                        new
+                        {
+                            Id = "a754b059-ae3d-4a44-94bd-91a276d312b2",
+                            ConcurrencyStamp = "838e8cb9-0bee-4d0f-afe9-db183cd212ca",
+                            Name = "User",
+                            NormalizedName = "user"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -191,6 +207,7 @@ namespace NMCK3.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Email");
 
@@ -235,9 +252,10 @@ namespace NMCK3.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)")
-                        .HasColumnName("ApplicationUser_Email");
+                        .HasColumnName("Email");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -389,7 +407,7 @@ namespace NMCK3.Infrastructure.Persistence.Migrations
 
                             b1.HasIndex("VoucherId");
 
-                            b1.ToTable("ExamReservation");
+                            b1.ToTable("ExamReservations");
 
                             b1.WithOwner("Exam")
                                 .HasForeignKey("ExamId");
@@ -412,6 +430,15 @@ namespace NMCK3.Infrastructure.Persistence.Migrations
                     b.Navigation("ExamReservations");
                 });
 
+            modelBuilder.Entity("NMCK3.Domain.Entities.User", b =>
+                {
+                    b.HasOne("NMCK3.Infrastructure.Persistence.Models.ApplicationUser", null)
+                        .WithOne()
+                        .HasForeignKey("NMCK3.Domain.Entities.User", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("NMCK3.Domain.Entities.Voucher", b =>
                 {
                     b.HasOne("NMCK3.Domain.Entities.User", "Buyer")
@@ -419,15 +446,6 @@ namespace NMCK3.Infrastructure.Persistence.Migrations
                         .HasForeignKey("BuyerId");
 
                     b.Navigation("Buyer");
-                });
-
-            modelBuilder.Entity("NMCK3.Infrastructure.Persistence.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("NMCK3.Domain.Entities.User", null)
-                        .WithOne()
-                        .HasForeignKey("NMCK3.Infrastructure.Persistence.Models.ApplicationUser", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
