@@ -5,13 +5,15 @@ using NMCK3.Application.Participants.Register;
 using NMCK3.Shared.Contracts.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace NMCK3.Api.Controllers
 {
     [Route("auth")]
     public class AuthenticationController : ApiController
     {
-        public AuthenticationController(ISender sender) : base(sender)
+        public AuthenticationController(ISender sender, IHttpContextAccessor httpContextAccessor)
+            : base(sender, httpContextAccessor)
         {
         }
 

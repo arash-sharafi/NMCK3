@@ -7,5 +7,5 @@ namespace NMCK3.Application.Vouchers.Commands.Buy
 {
     public sealed record BuyVoucherCommand(
         string UserId,
-        int Count) : ICommand<ReadOnlyCollection<Voucher>>;
+        int Count) : ICommand<ReadOnlyCollection<string>>;
 }

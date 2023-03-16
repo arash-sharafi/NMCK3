@@ -24,6 +24,8 @@ namespace NMCK3.Api
                 .AddApplication()
                 .AddInfrastructure(Configuration);
 
+            services.AddHttpContextAccessor();
+
             services.AddControllers();
         }
 

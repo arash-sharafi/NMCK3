@@ -10,35 +10,27 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace NMCK3.Application.ExamReservations.Commands.Create
+namespace NMCK3.Application.ExamReservations.Commands.Add
 {
-    internal sealed class CreateExamReservationCommandHandler : ICommandHandler<CreateExamReservationCommand>
+    internal sealed class AddExamReservationCommandHandler : ICommandHandler<AddExamReservationCommand>
     {
-        private readonly IExamRepository _examRepository;
-        private readonly IVoucherRepository _voucherRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IDateTimeProvider _dateTimeProvider;
 
 
-        public CreateExamReservationCommandHandler(IExamRepository examRepository,
-            IVoucherRepository voucherRepository,
-            IUserRepository userRepository,
+        public AddExamReservationCommandHandler(IExamRepository examRepository,
             IUnitOfWork unitOfWork,
             IDateTimeProvider dateTimeProvider)
         {
-            _examRepository = examRepository;
-            _voucherRepository = voucherRepository;
-            _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _dateTimeProvider = dateTimeProvider;
         }
 
-        public async Task<Result> Handle(CreateExamReservationCommand request, CancellationToken cancellationToken)
+        public async Task<Result> Handle(AddExamReservationCommand request, CancellationToken cancellationToken)
         {
-            var voucher = await _voucherRepository.GetVoucherById(request.VoucherId, cancellationToken);
-            var exam = await _examRepository.GetExamById(request.ExamId, cancellationToken);
-            var participant = await _userRepository.GetUserById(request.ParticipantId, cancellationToken);
+            var voucher = await _unitOfWork.Vouchers.GetVoucherById(request.VoucherId, cancellationToken);
+            var exam = await _unitOfWork.Exams.GetExamById(request.ExamId, cancellationToken);
+            var participant = await _unitOfWork.Users.GetUserById(request.ParticipantId, cancellationToken);
 
 
             if (!IsVoucherValid(voucher, exam, participant, _dateTimeProvider.Now))
@@ -61,13 +53,13 @@ namespace NMCK3.Application.ExamReservations.Commands.Create
 
             //Voucher used before
             var voucherAlreadyUsed = exam.ExamReservations
-                .FirstOrDefault(x => x.Participant == participant && x.Voucher == voucher);
+                .FirstOrDefault(x => x.Participant.Id == participant.Id && x.Voucher.Id == voucher.Id);
 
             if (voucherAlreadyUsed is not null)
                 return false;
 
             var participantAlreadyHasAReserevation = exam.ExamReservations
-                .FirstOrDefault(x => x.Participant == participant);
+                .FirstOrDefault(x => x.Participant.Id == participant.Id);
 
             if (participantAlreadyHasAReserevation is not null)
             {

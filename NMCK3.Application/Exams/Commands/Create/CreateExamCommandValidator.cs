@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace NMCK3.Application.Exams.Commands.Create
 {
-    class CreateExamCommandValidator:AbstractValidator<CreateExamCommand>
+    internal class CreateExamCommandValidator:AbstractValidator<CreateExamCommand>
     {
         public CreateExamCommandValidator()
         {

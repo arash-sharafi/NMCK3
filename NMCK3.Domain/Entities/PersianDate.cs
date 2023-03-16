@@ -21,11 +21,12 @@ namespace NMCK3.Domain.Entities
 
         public static implicit operator DateTime(PersianDate date)
         {
+
             var year = int.Parse(date.Value.Substring(0, 4));
             var month = int.Parse(date.Value.Substring(4, 2));
             var day = int.Parse(date.Value.Substring(6, 2));
 
-            return new DateTime(year, month, day);
+            return new DateTime(year, month, day, new PersianCalendar());
         }
 
         public static implicit operator PersianDate(DateTime date)
@@ -48,7 +49,10 @@ namespace NMCK3.Domain.Entities
 
         public static bool operator >(PersianDate left, PersianDate right)
         {
-            return !(left < right);
+            if (left == null || right == null)
+                return false;
+
+            return (DateTime)left > (DateTime)right;
         }
 
         public static bool operator <=(PersianDate left, PersianDate right)
@@ -61,7 +65,10 @@ namespace NMCK3.Domain.Entities
 
         public static bool operator >=(PersianDate left, PersianDate right)
         {
-            return !(left <= right);
+            if (left == null || right == null)
+                return false;
+
+            return (DateTime)left >= (DateTime)right;
         }
 
         public override IEnumerable<object> GetEqualityComponents()

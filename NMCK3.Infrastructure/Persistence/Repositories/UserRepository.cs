@@ -18,7 +18,8 @@ namespace NMCK3.Infrastructure.Persistence.Repositories
 
         public async Task<User> GetUserById(string userId, CancellationToken cancellationToken = default)
         {
-            var applicationUser = await _context.Users.FindAsync(userId);
+            var applicationUser = await _context.Users.AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == userId, cancellationToken);
 
             var user = User.Create(applicationUser.Id, applicationUser.Email);
             return user.IsFailure ? null : user.Value;
@@ -26,7 +27,7 @@ namespace NMCK3.Infrastructure.Persistence.Repositories
 
         public async Task<User> GetUserByEmail(Email email, CancellationToken cancellationToken = default)
         {
-            var applicationUser = await _context.Users
+            var applicationUser = await _context.Users.AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Email == email.Value, cancellationToken);
 
             var user = User.Create(applicationUser.Id, applicationUser.Email);

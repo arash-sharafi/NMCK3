@@ -15,8 +15,7 @@ namespace NMCK3.Infrastructure.Persistence.Repositories.Configurations
             builder.Property(u => u.Email)
                 .HasColumnName("Email")
                 .HasConversion(e => e.Value,
-                    value => Email.Create(value).Value)
-                .IsRequired();
+                    value => Email.Create(value).Value);
         }
     }
 }

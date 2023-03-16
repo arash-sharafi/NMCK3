@@ -27,7 +27,8 @@ namespace NMCK3.Infrastructure.Persistence.Repositories
 
         public async Task<Voucher> GetVoucherById(Guid voucherId, CancellationToken cancellationToken = default)
         {
-            return await _context.Vouchers.FindAsync(voucherId, cancellationToken);
+            var voucher = await _context.Vouchers.FirstOrDefaultAsync(x => x.Id == voucherId, cancellationToken);
+            return voucher;
         }
 
         public async Task<IEnumerable<Voucher>> GetVouchersByBuyerId(string buyerId, CancellationToken cancellationToken = default)

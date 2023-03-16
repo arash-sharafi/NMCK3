@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NMCK3.Domain.Shared;
 using System;
-using MediatR;
+using System.Security.Claims;
 
 namespace NMCK3.Api.Controllers
 {
@@ -10,8 +11,12 @@ namespace NMCK3.Api.Controllers
     public class ApiController : ControllerBase
     {
         protected readonly ISender Sender;
-
-        protected ApiController(ISender sender) => Sender = sender;
+        protected readonly string UserId;
+        protected ApiController(ISender sender, IHttpContextAccessor httpContextAccessor)
+        {
+            Sender = sender;
+            UserId = httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        }
 
         protected IActionResult HandleFailure(Result result) =>
             result switch

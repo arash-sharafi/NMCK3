@@ -14,6 +14,11 @@ namespace NMCK3.Domain.ValueObjects
             Value = value;
         }
 
+        public static implicit operator string(Email email)
+        {
+            return email.Value;
+        }
+
         public static Result<Email> Create(string emailAddress)
         {
             if (string.IsNullOrWhiteSpace(emailAddress))
