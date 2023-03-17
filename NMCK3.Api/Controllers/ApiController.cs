@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NMCK3.Domain.Shared;
@@ -12,9 +13,11 @@ namespace NMCK3.Api.Controllers
     {
         protected readonly ISender Sender;
         protected readonly string UserId;
-        protected ApiController(ISender sender, IHttpContextAccessor httpContextAccessor)
+        protected readonly IMapper Mapper;
+        protected ApiController(ISender sender, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             Sender = sender;
+            Mapper = mapper;
             UserId = httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         }
 

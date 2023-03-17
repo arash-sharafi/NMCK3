@@ -9,6 +9,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using NMCK3.Domain.ValueObjects;
 
 namespace NMCK3.Application.ExamReservations.Commands.Add
 {
@@ -28,13 +29,18 @@ namespace NMCK3.Application.ExamReservations.Commands.Add
 
         public async Task<Result> Handle(AddExamReservationCommand request, CancellationToken cancellationToken)
         {
-            var voucher = await _unitOfWork.Vouchers.GetVoucherById(request.VoucherId, cancellationToken);
+            var voucherCode = VoucherCode.Create(request.VoucherCode);
+
+            if (voucherCode.IsFailure)
+                return Result.Fail(voucherCode.Error);
+
+            var voucher = await _unitOfWork.Vouchers.GetVoucherByCode(voucherCode.Value, cancellationToken);
             var exam = await _unitOfWork.Exams.GetExamById(request.ExamId, cancellationToken);
             var participant = await _unitOfWork.Users.GetUserById(request.ParticipantId, cancellationToken);
 
 
             if (!IsVoucherValid(voucher, exam, participant, _dateTimeProvider.Now))
-                return Result.Fail(ApplicationErrors.Voucher.InvalidVoucher);
+                return Result.Fail(ApplicationErrors.Voucher.InvalidReservationAttempt);
 
             exam.AddExamReservation(participant, voucher);
 

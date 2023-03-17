@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Mapster;
+using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +17,8 @@ namespace NMCK3.Api.Controllers
     [Route("[controller]")]
     public class ExamsController : ApiController
     {
-        public ExamsController(ISender sender, IHttpContextAccessor httpContextAccessor)
-            : base(sender, httpContextAccessor)
+        public ExamsController(ISender sender, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+            : base(sender, httpContextAccessor, mapper)
         {
         }
 
@@ -25,11 +27,7 @@ namespace NMCK3.Api.Controllers
         public async Task<IActionResult> Create(CreateExamRequest request,
                 CancellationToken cancellationToken)
         {
-            var command = new CreateExamCommand(
-                request.Name,
-                request.ExamDate,
-                request.Description,
-                request.Capacity);
+            var command = Mapper.Map<CreateExamCommand>(request);
 
             var result = await Sender.Send(command, cancellationToken);
 
@@ -40,10 +38,7 @@ namespace NMCK3.Api.Controllers
         public async Task<IActionResult> AddExamReservation(AddExamReservationRequest request,
             CancellationToken cancellationToken)
         {
-            var command = new AddExamReservationCommand(
-                ParticipantId: UserId,
-                request.ExamId,
-                request.VoucherId);
+            var command = (UserId, request).Adapt<AddExamReservationCommand>();
 
             var result = await Sender.Send(command, cancellationToken);
 

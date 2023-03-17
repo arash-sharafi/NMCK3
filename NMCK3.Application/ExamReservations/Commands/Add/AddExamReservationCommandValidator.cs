@@ -9,7 +9,7 @@ namespace NMCK3.Application.ExamReservations.Commands.Add
         {
             RuleFor(x => x.ParticipantId).NotNull().NotEmpty();
             RuleFor(x => x.ExamId).NotEqual(Guid.Empty);
-            RuleFor(x => x.VoucherId).NotEqual(Guid.Empty);
+            RuleFor(x => x.VoucherCode).NotNull().NotEmpty();
         }
     }
 }

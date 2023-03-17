@@ -35,7 +35,7 @@ namespace NMCK3.Application.Vouchers.Commands.Buy
 
         public async Task<Result<ReadOnlyCollection<string>>> Handle(BuyVoucherCommand request, CancellationToken cancellationToken)
         {
-            var buyer = await _userRepository.GetUserById(request.UserId, cancellationToken);
+            var buyer = await _userRepository.GetUserById(request.BuyerId, cancellationToken);
 
             var purchaseDate = VoucherPurchaseDate.Create(
                 PersianDate.Today(_dateTimeProvider.Now).Value,

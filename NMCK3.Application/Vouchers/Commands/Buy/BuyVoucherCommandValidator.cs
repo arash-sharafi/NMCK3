@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace NMCK3.Application.Vouchers.Commands.Buy
 {
@@ -12,7 +7,7 @@ namespace NMCK3.Application.Vouchers.Commands.Buy
         public BuyVoucherCommandValidator()
         {
             RuleFor(x => x.Count).GreaterThan(0);
-            RuleFor(x => x.UserId).NotEmpty();
+            RuleFor(x => x.BuyerId).NotNull().NotEmpty();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Mapster;
+using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,17 +15,15 @@ namespace NMCK3.Api.Controllers
     [Route("[controller]")]
     public class VouchersController : ApiController
     {
-        public VouchersController(ISender sender, IHttpContextAccessor httpContextAccessor)
-            : base(sender, httpContextAccessor)
+        public VouchersController(ISender sender, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+            : base(sender, httpContextAccessor, mapper)
         {
         }
 
         [HttpPost("buy")]
         public async Task<IActionResult> Buy(BuyVoucherRequest request, CancellationToken cancellationToken)
         {
-            var command = new BuyVoucherCommand(
-                UserId,
-                request.Count);
+            var command = (UserId, request).Adapt<BuyVoucherCommand>();
 
             var result = await Sender.Send(command, cancellationToken);
 
