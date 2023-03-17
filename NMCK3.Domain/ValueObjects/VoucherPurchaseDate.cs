@@ -18,6 +18,5 @@ namespace NMCK3.Domain.ValueObjects
 
             return new VoucherPurchaseDate(purchaseDate);
         }
-
     }
 }

@@ -26,6 +26,8 @@ namespace NMCK3.Infrastructure.Persistence.Repositories
         {
             var result = await _context.Exams
                 .Include(x => x.ExamReservations)
+                .ThenInclude(x => x.Voucher)
+                .Include(x => x.ExamReservations)
                 .ThenInclude(x => x.Participant)
                 .FirstOrDefaultAsync(x => x.Id == examId, cancellationToken);
             return result;

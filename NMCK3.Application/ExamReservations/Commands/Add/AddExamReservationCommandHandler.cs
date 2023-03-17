@@ -36,10 +36,8 @@ namespace NMCK3.Application.ExamReservations.Commands.Add
             if (!IsVoucherValid(voucher, exam, participant, _dateTimeProvider.Now))
                 return Result.Fail(ApplicationErrors.Voucher.InvalidVoucher);
 
-            //Add the reservation
-            exam.SubmitReservation(participant, voucher);
+            exam.AddExamReservation(participant, voucher);
 
-            //Save the result
             await _unitOfWork.CompleteAsync(cancellationToken);
 
             return Result.Success();
@@ -47,11 +45,9 @@ namespace NMCK3.Application.ExamReservations.Commands.Add
 
         public static bool IsVoucherValid(Voucher voucher, Exam exam, User participant, DateTime currentDate)
         {
-            //Check of voucher is expired
             if (currentDate > Utilities.GetVoucherExpirationDate(voucher, Utilities.VoucherValidationInMonths))
                 return false;
 
-            //Voucher used before
             var voucherAlreadyUsed = exam.ExamReservations
                 .FirstOrDefault(x => x.Participant.Id == participant.Id && x.Voucher.Id == voucher.Id);
 
