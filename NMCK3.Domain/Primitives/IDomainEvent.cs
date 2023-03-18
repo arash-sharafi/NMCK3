@@ -2,7 +2,7 @@
 
 namespace NMCK3.Domain.Primitives
 {
-    public interface IDomainEvent:INotification
+    public interface IDomainEvent : INotification
     {
     }
 }

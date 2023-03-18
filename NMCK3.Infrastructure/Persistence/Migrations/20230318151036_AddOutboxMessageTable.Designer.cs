@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NMCK3.Infrastructure.Persistence;
 
 namespace NMCK3.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230318151036_AddOutboxMessageTable")]
+    partial class AddOutboxMessageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace NMCK3.Infrastructure.Persistence.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "290b58e9-d49d-4f8f-a15f-7b12c6940bac",
-                            ConcurrencyStamp = "7427204c-2235-41ae-a984-5cecf05d0cea",
+                            Id = "0752001e-267a-476c-908f-f0d2cd051796",
+                            ConcurrencyStamp = "cc8df45a-89f3-4a3b-8f86-14a82f5fd3da",
                             Name = "Admin",
                             NormalizedName = "admin"
                         },
                         new
                         {
-                            Id = "e72fc3f2-27ab-436e-802f-e34fdb72c7ff",
-                            ConcurrencyStamp = "328296a2-f2de-408b-8938-fa67f7b891ae",
+                            Id = "a6af9cef-f67b-419a-be3b-a6ac927d1658",
+                            ConcurrencyStamp = "ab3ef979-c83b-4351-b7c0-ceceb1d77d2b",
                             Name = "User",
                             NormalizedName = "user"
                         });

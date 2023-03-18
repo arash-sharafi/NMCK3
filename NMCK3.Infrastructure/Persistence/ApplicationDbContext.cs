@@ -11,6 +11,7 @@ namespace NMCK3.Infrastructure.Persistence
         public DbSet<Exam> Exams { get; set; }
         public DbSet<ExamReservation> ExamReservations { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<OutboxMessage> OutboxMessages { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

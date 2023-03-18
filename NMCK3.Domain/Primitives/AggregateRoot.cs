@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NMCK3.Domain.Primitives
 {
@@ -11,6 +12,10 @@ namespace NMCK3.Domain.Primitives
             : base(id)
         {
         }
+
+        public IReadOnlyCollection<IDomainEvent> GetDomainEvents() => _domainEvents.ToList();
+
+        public void ClearDomainEvents() => _domainEvents.Clear();
 
         protected void RaiseDomainEvent(IDomainEvent domainEvent)
         {

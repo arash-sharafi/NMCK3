@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using NMCK3.Application.Common.Services;
 using NMCK3.Domain.DomainEvents;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -25,7 +26,12 @@ namespace NMCK3.Application.ExamReservations.Events
             if (exam is null)
                 return;
 
-            await _emailService.SendExamReservationAddedEmailAsync(exam, cancellationToken);
+            var examReservation = exam.ExamReservations.FirstOrDefault(x => x.Id == notification.ExamReservationId);
+
+            if (examReservation is null)
+                return;
+
+            await _emailService.SendExamReservationAddedEmailAsync(examReservation, cancellationToken);
         }
     }
 }

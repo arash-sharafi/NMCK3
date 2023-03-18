@@ -83,7 +83,7 @@ namespace NMCK3.Domain.Entities
 
             _examReservations.Add(reservation);
 
-            RaiseDomainEvent(new ExamReservationAddedDomainEvent(this));
+            RaiseDomainEvent(new ExamReservationAddedDomainEvent(Id, reservation.Id));
 
             --RemainingCapacity;
 

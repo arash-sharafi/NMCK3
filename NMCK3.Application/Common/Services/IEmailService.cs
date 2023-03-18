@@ -6,6 +6,6 @@ namespace NMCK3.Application.Common.Services
 {
     public interface IEmailService
     {
-        Task SendExamReservationAddedEmailAsync(Exam exam, CancellationToken cancellationToken = default);
+        Task SendExamReservationAddedEmailAsync(ExamReservation examReservation, CancellationToken cancellationToken = default);
     }
 }
