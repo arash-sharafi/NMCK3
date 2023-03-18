@@ -1,4 +1,5 @@
-﻿using NMCK3.Domain.Errors;
+﻿using NMCK3.Domain.DomainEvents;
+using NMCK3.Domain.Errors;
 using NMCK3.Domain.Exceptions;
 using NMCK3.Domain.Primitives;
 using NMCK3.Domain.Shared;
@@ -77,7 +78,12 @@ namespace NMCK3.Domain.Entities
 
             var reservation = new ExamReservation(Guid.NewGuid(), this, participant, voucher);
 
+            if (RemainingCapacity < 0)
+                return Result.Fail<ExamReservation>(DomainErrors.ExamReservation.NoAvailableReservationSpot);
+
             _examReservations.Add(reservation);
+
+            RaiseDomainEvent(new ExamReservationAddedDomainEvent(this));
 
             --RemainingCapacity;
 

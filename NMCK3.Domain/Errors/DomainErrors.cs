@@ -16,6 +16,10 @@ namespace NMCK3.Domain.Errors
             public static readonly Error NullParticipant = new Error(
                 "ExamReservation.NullParticipant",
                 "Participant can not be null.");
+
+            public static readonly Error NoAvailableReservationSpot = new Error(
+                "ExamReservation.NoAvailableReservationSpot",
+                "There is no available reservation spot for this exam.");
         }
 
         public static class ExamDate
